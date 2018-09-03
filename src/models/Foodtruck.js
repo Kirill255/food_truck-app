@@ -32,4 +32,5 @@ const FoodtruckSchema = new Schema({
 
 const Foodtruck = mongoose.model("Foodtruck", FoodtruckSchema);
 
+
 module.exports = Foodtruck;

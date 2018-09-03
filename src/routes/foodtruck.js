@@ -4,8 +4,10 @@ const router = express.Router();
 const Foodtruck = require("../models/Foodtruck");
 const Review = require("../models/Review");
 
+const auth = require("../middleware/auth");
+
 // get all /api/foodtruck
-router.get("/", (req, res, next) => {
+router.get("/", auth.authenticate, (req, res, next) => {
   Foodtruck.find({}, (err, foodtrucks) => {
     if (err) return next(err);
     res.json({ foodtrucks: foodtrucks });
@@ -13,7 +15,7 @@ router.get("/", (req, res, next) => {
 });
 
 // add one /api/foodtruck
-router.post("/", (req, res, next) => {
+router.post("/", auth.authenticate, (req, res, next) => {
   let foodtruck = new Foodtruck();
   foodtruck.name = req.body.name;
   foodtruck.foodtype = req.body.foodtype;
@@ -27,7 +29,7 @@ router.post("/", (req, res, next) => {
 });
 
 // get one /api/foodtruck/:id
-router.get("/:id", (req, res, next) => {
+router.get("/:id", auth.authenticate, (req, res, next) => {
   let id = req.params.id;
   Foodtruck.findById(id, (err, foodtruck) => {
     if (err) return next(err);
@@ -36,7 +38,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // update one /api/foodtruck/:id
-router.put("/:id", (req, res, next) => {
+router.put("/:id", auth.authenticate, (req, res, next) => {
   let id = req.params.id;
   Foodtruck.findByIdAndUpdate(id, { $set: req.body }, { new: true }, (err, foodtruck) => {
     if (err) return next(err);
@@ -45,7 +47,7 @@ router.put("/:id", (req, res, next) => {
 });
 
 // delete one /api/foodtruck/:id
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", auth.authenticate, (req, res, next) => {
   let id = req.params.id;
   Foodtruck.findByIdAndRemove(id, (err, foodtruck) => {
     if (err) return next(err);
@@ -59,7 +61,7 @@ router.delete("/:id", (req, res, next) => {
 // ========================================================
 
 // get all reviews /api/foodtruck/rewiews/:id
-router.get("/rewiews/:id", (req, res, next) => {
+router.get("/rewiews/:id", auth.authenticate, (req, res, next) => {
   let refId = req.params.id;
   Review.find({ foodtruck: refId }, (err, reviews) => {
     if (err) return next(err);
@@ -68,7 +70,7 @@ router.get("/rewiews/:id", (req, res, next) => {
 });
 
 // add review /api/foodtruck/rewiews/:id
-router.post("/rewiews/:id", (req, res, next) => {
+router.post("/rewiews/:id", auth.authenticate, (req, res, next) => {
   let id = req.params.id;
   Foodtruck.findById(id, (err, foodtruck) => {
     if (err) return next(err);
@@ -88,5 +90,6 @@ router.post("/rewiews/:id", (req, res, next) => {
     });
   });
 });
+
 
 module.exports = router;
