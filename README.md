@@ -1,5 +1,16 @@
 > food_truck-app
 
+## Start
+
+```bash
+// local
+npm run dev
+
+// when the project is deployed on the server
+npm start
+
+```
+
 ## How the project was created
 
 ### At first
@@ -44,3 +55,7 @@
 ### Add authentication
 
 * `npm i express-jwt jsonwebtoken passport passport-local passport-local-mongoose -S`
+
+### Deploy
+
+[How to deploy](https://www.sitepoint.com/premium/courses/deploying-a-node-js-app-to-digitalocean-2982)
