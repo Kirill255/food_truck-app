@@ -7,7 +7,7 @@ const Review = require("../models/Review");
 const auth = require("../middleware/auth");
 
 // get all /api/foodtruck
-router.get("/", auth.authenticate, (req, res, next) => {
+router.get("/", (req, res, next) => {
   Foodtruck.find({}, (err, foodtrucks) => {
     if (err) return next(err);
     res.json({ foodtrucks: foodtrucks });
