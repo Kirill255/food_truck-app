@@ -20,7 +20,8 @@ router.post("/", auth.authenticate, (req, res, next) => {
   foodtruck.name = req.body.name;
   foodtruck.foodtype = req.body.foodtype;
   foodtruck.avgcost = req.body.avgcost;
-  foodtruck.geometry.coordinates = req.body.geometry.coordinates;
+  foodtruck.geometry.coordinates.latitude = req.body.geometry.coordinates.latitude;
+  foodtruck.geometry.coordinates.longitude = req.body.geometry.coordinates.longitude;
 
   foodtruck.save(err => {
     if (err) return next(err);

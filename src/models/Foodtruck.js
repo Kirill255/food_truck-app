@@ -16,7 +16,10 @@ const FoodtruckSchema = new Schema({
   },
   geometry: {
     type: { type: String, default: "Point" },
-    coordinates: [Number]
+    coordinates: {
+      latitude: Number,
+      longitude: Number
+    }
   },
   reviews: [
     {
